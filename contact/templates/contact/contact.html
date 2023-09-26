@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <hr class="text-dark">
+                <h2 class="logo-font mb-4 text-dark">Get In Touch!</h2>
+                <h5 class="text-muted">Add a Product</h5>
+                <hr class="text-dark">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div>
+                            <span class="text-dark">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                        </div>
+                        <span class="text-dark">+353 (967) 123465</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-2 mt-2"></div>
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div>
+                            <span class="text-dark">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                        </div>
+                        <span class="text-dark">cnaeire@gmail.com</span>
+                    </div>
+                </div>
+                <hr class="text-dark">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6 text-dark">
+                <form class="form mb-2" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {% for field in form %}
+                            {{ field| as_crispy_field }}
+                        {% endfor %}
+                    <div class="text-end">
+                        <a href="{% url 'products' %}" class="btn btn-outline-dark rounded-0 text-dark">Cancel</a>
+                        <button class="btn btn-dark rounded-0" type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

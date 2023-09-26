@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col card mb-4 mt-3">
+                <div class="card-body">
+                    {% if request.user.is_superuser %}
+                        <div class="d-flex justify-content-end">
+                            <a href="{% url 'edit_blog' blog.slug %}" class="btn btn-warning me-2">Edit</a>
+                            <a href="{% url 'delete_blog' blog.slug %}" class="btn btn-danger">Delete</a>
+                        </div>
+
+                    {% endif %}
+                    <div class="card-title text-dark text-center">
+                        <h2>{{ blog.title }}</h2>
+                    </div>
+                    <div class="card-subtitle mb-2 text-muted text-center">By: {{ blog.author }}</div>
+                    {% for paragraph in content_paragraphs %}
+                        <p class="text-dark text-break fw-normal lh-1">{{ blog.content | safe }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+<script type="text/javascript">
+  function handleEnableDisable(itemId) {
+    var element = document.querySelector(`.id_qty_${itemId}`);
+
+    console.log("Element:", element);
+    
+
+    if(element) {
+      var currVal = parseInt(document.querySelector(`.id_qty_${itemId}`).value);
+      var minusDisabled = currVal < 2;
+      var plusDisabled = currVal > 98;
+      
+      console.log(currVal)
+
+      document.querySelector(`.decrement-qty_${itemId}`).disabled = minusDisabled;
+      document.querySelector(`.increment-qty_${itemId}`).disabled = plusDisabled;
+    } else {
+      console.log(`Element with id_qty_${itemId} not found`);
+    }
+  }
+
+  var allQtyInputs = document.querySelectorAll('.qty_input');
+  for (var i = 0; i < allQtyInputs.length; i++) {
+    var itemId = allQtyInputs[i].dataset.item_id;
+    handleEnableDisable(itemId);
+  }
+
+  allQtyInputs.forEach(function(input) {
+    input.addEventListener('change', function() {
+      var itemId = this.dataset.item_id;
+      handleEnableDisable(itemId);
+    });
+  });
+
+  var incrementButtons = document.querySelectorAll('.increment-qty');
+  incrementButtons.forEach(function(button) {
+    button.addEventListener('click', function(e) {
+      console.log("increment is being triggered on bag page")
+      e.preventDefault();
+      var itemId = this.dataset.item_id;
+      var closestInput = this.closest('.input-group').querySelector('.qty_input');
+      var allQuantityInputs = document.querySelectorAll(`.input-group-${itemId} input[name='quantity']`);
+      var currVal = parseInt(closestInput.value);
+      allQuantityInputs.forEach(function(input) {
+        console.log(input.value);
+        input.value = currVal + 1;
+      });
+      handleEnableDisable(itemId);
+    });
+  });
+
+  var decrementButtons = document.querySelectorAll('.decrement-qty');
+  decrementButtons.forEach(function(button) {
+    button.addEventListener('click', function(e){
+      e.preventDefault();
+      var itemId = this.dataset.item_id;
+      var closestInput = this.closest(`.input-group`).querySelector('.qty_input');
+      var allQuantityInputs = document.querySelectorAll(`.input-group-${itemId} input[name='quantity']`);
+      var currVal = parseInt(closestInput.value);
+      allQuantityInputs.forEach(function(input) {
+        input.value = currVal - 1;
+      });
+      handleEnableDisable(itemId);
+    });
+  });
+</script>
