@@ -1,0 +1,1 @@
+web: gunicorn cna_ireland.wsgi:application
